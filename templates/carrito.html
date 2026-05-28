@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h3>Carrito de compras</h3>
+
+    <div class="mb-3">
+        {% if carrito %}
+            <h5>
+                🏪 Tienda:
+                {{ (carrito.values()|list|first).tienda_nombre }}
+            </h5>
+        {% endif %}
+    </div>
+
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <!-- Inicializar el total -->
+            {% set ns = namespace(total = 0) %}
+
+            <!-- Iterar sobre los items en el carrito -->
+            {% for id, item in carrito.items() %}
+
+                {% set subtotal = item.precio * item.cantidad %}
+                {% set ns.total = ns.total + subtotal %}
+
+                <tr>
+                    <td>{{ item.nombre }}</td>
+                    <td>{{ item.precio }}</td>
+                    <td class="d-flex gap-2">
+                        <a href="/decrease/{{ id }}" class="btn btn-outline-secondary btn-sm">-</a>
+
+                        <span>{{ item.cantidad }}</span>
+
+                        <a href="/increase/{{ id }}" class="btn btn-outline-secondary btn-sm">+</a>
+                    </td>
+                    <td>{{ subtotal }}</td>
+                    <td>
+                        <a href="/remove_from_cart/{{ id }}" 
+                        class="btn btn-danger btn-sm">
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <td colspan="3"><b>Total</b></td>
+                <td><b>{{ ns.total }}</b></td>
+            </tr>
+        </tfoot>
+
+    </table>
+
+    <a href="/" class="btn btn-secondary">
+        Seguir comprando
+    </a>
+
+    <a href="/checkout" class="btn btn-success">
+        Confirmar pedido
+    </a>
+
+
+</div>
+
+{% endblock %}

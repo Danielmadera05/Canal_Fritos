@@ -1,0 +1,48 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block content %}
+
+<h2 class="mb-4">Gestión de Productos</h2>
+
+<div class="mb-3">
+    <a href="/admin/productos/nuevo" class="btn btn-success">
+        + Nuevo producto
+    </a>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Imagen</th>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Tienda</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for producto in productos %}
+        <tr>
+            <td>{{ producto.fri_id }}</td>
+            <td>
+                <img src="{{ url_for('static', filename='uploads/' + producto.fri_foto) }}" width="70">
+            </td>
+            <td>{{ producto.fri_nombre }}</td>
+            <td>${{ "%.0f"|format(producto.fri_precio) }}</td>
+            <td>{{ producto.tienda.tie_nombre }}</td>
+            <td>
+                <a href="/admin/productos/editar/{{ producto.fri_id }}" class="btn btn-warning btn-sm">
+                    Editar
+                </a>
+                <a href="/admin/productos/eliminar/{{ producto.fri_id }}" class="btn btn-danger btn-sm" onclick="return confirm('¿Deseas eliminar este producto?')">
+                    Eliminar
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

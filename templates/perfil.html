@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a class="dropdown-item" href="/">
+    👤 Volver
+</a>
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <div class="card shadow">
+
+                <div class="card-body text-center">
+
+                    <img src="{{ url_for('static', filename='uploads/' ~ (cliente.cli_foto or 'default.png')) }}"
+                         width="120"
+                         height="120"
+                         class="rounded-circle mb-3">
+
+                    <h4>{{ cliente.cli_nombre }}</h4>
+                    <p>{{ cliente.cli_email }}</p>
+
+                    <hr>
+
+                    <p><b>Teléfono:</b> {{ cliente.cli_telefono }}</p>
+                    <p><b>Dirección:</b> {{ cliente.cli_address }}</p>
+
+                    <a href="/perfil/editar" class="btn btn-dark mt-3">
+                        Editar perfil
+                    </a>
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

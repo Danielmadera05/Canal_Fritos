@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a class="dropdown-item" href="/">
+    👤 Volver
+</a>
+<div class="container mt-4">
+
+    <h3>Mis compras</h3>
+
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {% for p in pedidos %}
+            <tr>
+                <td>{{ p.ped_id }}</td>
+                <td>{{ p.ped_fecha }}</td>
+                <td>${{ "%.0f"|format(p.ped_total) }}</td>
+                <td>{{ p.ped_estado }}</td>
+                <td>
+                    <a href="/detalle-compra/{{ p.ped_id }}" class="btn btn-sm btn-primary">
+                        Ver detalle
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+    
+</div>
+
+{% endblock %}

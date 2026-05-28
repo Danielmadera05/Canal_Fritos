@@ -1,0 +1,242 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">
+        Panel Administrador
+    </h2>
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-2">
+
+            <div class="card h-100 text-center shadow-sm">
+
+                <div class="card-body">
+
+                    <h5>🏪 Tiendas</h5>
+
+                    <h2>{{ total_tiendas }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-2">
+
+            <div class="card h-100 text-center shadow-sm">
+
+                <div class="card-body">
+
+                    <h5>📦 Productos</h5>
+
+                    <h2>{{ total_productos }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-2">
+
+            <div class="card h-100 text-center shadow-sm">
+
+                <div class="card-body">
+
+                    <h5>🧾 Pedidos</h5>
+
+                    <h2>{{ total_pedidos }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-2">
+
+            <div class="card h-100 text-center shadow-sm">
+
+                <div class="card-body">
+
+                    <h5>👥 Clientes</h5>
+
+                    <h2>{{ total_clientes }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-2">
+
+            <div class="card h-100 text-center shadow-sm">
+
+                <div class="card-body">
+
+                    <h5>💰 Ingresos</h5>
+
+                    <h2>${{ "%.0f"|format(ingresos) }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="card shadow-sm">
+
+    <div class="card-body">
+
+        <h4 class="mb-4">🕒 Últimos pedidos</h4>
+
+        <table class="table table-hover align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th>Cliente</th>
+                    <th>Tienda</th>
+                    <th>Estado</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for pedido in ultimos_pedidos %}
+
+                <tr>
+
+                    <td>{{ pedido.cliente.cli_nombre }}</td>
+
+                    <td>{{ pedido.tienda.tie_nombre }}</td>
+
+                    <td>
+
+                        {% if pedido.ped_estado=="Solicitado" %}
+                            <span class="badge bg-warning">{{ pedido.ped_estado }}</span>
+
+                        {% elif pedido.ped_estado=="Preparando" %}
+                            <span class="badge bg-primary">{{ pedido.ped_estado }}</span>
+
+                        {% elif pedido.ped_estado=="Enviado" %}
+                            <span class="badge bg-info">{{ pedido.ped_estado }}</span>
+
+                        {% elif pedido.ped_estado=="Entregado" %}
+                            <span class="badge bg-success">{{ pedido.ped_estado }}</span>
+
+                        {% else %}
+                            <span class="badge bg-danger">{{ pedido.ped_estado }}</span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<div class="row mt-4">
+
+    <div class="col-md-4">
+
+        <div class="d-flex flex-column gap-4 h-100">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h4 class="mb-3">
+
+                        🔥 Producto más vendido
+
+                    </h4>
+
+                    {% if producto_top %}
+
+                        <h5>{{ producto_top[0] }}</h5>
+
+                        <h2>{{ producto_top[1] }} ventas</h2>
+
+                    {% else %}
+
+                        <p>No hay ventas registradas</p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h4 class="mb-3">
+
+                        🏆 Tienda líder
+
+                    </h4>
+
+                    {% if tienda_lider %}
+
+                        <h5>{{ tienda_lider[0] }}</h5>
+
+                        <h2>{{ tienda_lider[1] }} pedidos</h2>
+
+                    {% else %}
+
+                        <p>No hay datos disponibles</p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-8">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-body">
+
+                <h4 class="mb-4">
+
+                    📊 Pedidos por tienda
+
+                </h4>
+
+                <canvas id="pedidosTienda"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

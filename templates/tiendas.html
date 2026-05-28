@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">Tiendas disponibles</h2>
+
+    <div class="row">
+
+        {% for tienda in tiendas %}
+
+        <div class="col-md-4">
+
+            <div class="card mb-4">
+
+                <img
+                    src="{{ url_for('static',
+                    filename='uploads/' + tienda.tie_imagen) }}"
+                    class="card-img-top"
+                    height="250"
+                >
+
+                <div class="card-body">
+                    <h5>{{ tienda.tie_nombre }}</h5>
+
+                    <p>📍 {{ tienda.tie_direccion }}</p>
+
+                    <a href="/tienda/{{ tienda.tie_id }}" class="btn btn-primary">Ver productos</a>
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block content %}
+
+<h2 class="mb-4">Reportes y Estadísticas</h2>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5>Total ingresos</h5>
+                <h3>${{ "%.0f"|format(total_ingresos) }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5>Total pedidos</h5>
+                <h3>{{ total_pedidos }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5>Usuarios registrados</h5>
+                <h3>{{ total_usuarios }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="mb-3">
+            Ventas por tienda
+        </h4>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Tienda</th>
+                    <th>Cantidad pedidos</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for tienda, cantidad in ventas_tiendas %}
+                <tr>
+                    <td>{{ tienda }}</td>
+                    <td>{{ cantidad }}</td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h5 class="mb-3">Pedidos por tienda</h5>
+                        <canvas id="graficaBarras"></canvas>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h5 class="mb-3">Distribución pedidos</h5>
+                        <canvas id="graficaPastel"></canvas>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const labels = {{ (labels or [])|tojson }}
+    const datos = {{ (datos or [])|tojson }}
+
+    new Chart(
+        document.getElementById("graficaBarras"),
+        {
+            type:"bar",
+            data:{
+                labels:labels,
+                datasets:[{
+                    label:"Pedidos",
+                    data:datos
+                }]
+            }
+        }
+    )
+
+    new Chart(
+        document.getElementById("graficaPastel"),
+        {
+            type:"pie",
+            data:{
+                labels:labels,
+                datasets:[{
+                    data:datos
+                }]
+            }
+        }
+    )
+</script>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'admin/admin_base.html' %}
+{% block content %}
+
+<h2 class="mb-4">Editar tienda</h2>
+
+<div class="card">
+    <div class="card-body">
+        <form method="POST" enctype="multipart/form-data">
+
+            <div class="mb-3">
+                <label>Nombre</label>
+                <input class="form-control" type="text" name="nombre" value="{{ tienda.tie_nombre }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Dirección</label>
+                <input class="form-control" type="text" name="direccion" value="{{ tienda.tie_direccion }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Imagen actual</label><br>
+                <img src="{{ url_for('static', filename='uploads/' + tienda.tie_imagen) }}" width="120">
+            </div>
+
+            <div class="mb-3">
+                <label>Nueva imagen (opcional)</label>
+                <input class="form-control" type="file" name="imagen">
+            </div>
+
+            <button class="btn btn-warning">
+                Actualizar
+            </button>
+
+            <a href="/admin/tiendas" class="btn btn-secondary"> Cancelar </a>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

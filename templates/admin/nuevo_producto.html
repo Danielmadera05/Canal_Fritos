@@ -1,0 +1,49 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block content %}
+
+<h2 class="mb-4">Nuevo producto</h2>
+
+<div class="card">
+    <div class="card-body">
+        <form method="POST" enctype="multipart/form-data">
+
+            <div class="mb-3">
+                <label>Nombre</label>
+                <input class="form-control" type="text" name="nombre" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Precio</label>
+                <input class="form-control" type="number" name="precio" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Tienda</label>
+
+                <select class="form-select" name="tienda" required>
+                    <option value="">Seleccione una tienda</option>
+                    {% for tienda in tiendas %}
+                        <option value="{{ tienda.tie_id }}">
+                            {{ tienda.tie_nombre }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label>Imagen</label>
+                <input class="form-control" type="file" name="imagen" required>
+            </div>
+
+            <button class="btn btn-success">
+                Guardar producto
+            </button>
+
+            <a href="/admin/productos" class="btn btn-secondary"> Cancelar </a>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

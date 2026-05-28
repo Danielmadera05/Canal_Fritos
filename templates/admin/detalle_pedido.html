@@ -1,0 +1,49 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    Pedido #{{ pedido.ped_id }}
+</h2>
+
+<div class="card mb-4">
+    <div class="card-body">
+
+        <h5>Información del pedido</h5>
+
+        <p><strong>Cliente:</strong> {{ pedido.cliente.cli_nombre }}</p>
+        <p><strong>Estado:</strong> {{ pedido.ped_estado }}</p>
+        <p><strong>Total:</strong> ${{ "%.0f"|format(pedido.ped_total) }}</p>
+        <p><strong>Fecha:</strong> {{ pedido.ped_fecha }}</p>
+
+    </div>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for detalle in detalles %}
+        <tr>
+            <td>{{ detalle.frito.fri_nombre }}</td>
+            <td>{{ detalle.cantidad }}</td>
+            <td>${{ "%.0f"|format(detalle.precio) }}</td>
+            <td>${{ "%.0f"|format(detalle.cantidad * detalle.precio) }}</td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="/admin/pedidos" class="btn btn-secondary">
+    Volver
+</a>
+
+{% endblock %}

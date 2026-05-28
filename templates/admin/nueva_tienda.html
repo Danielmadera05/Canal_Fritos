@@ -1,0 +1,38 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    Nueva tienda
+</h2>
+
+<div class="card">
+    <div class="card-body">
+        <form method="POST" enctype="multipart/form-data">
+
+            <div class="mb-3">
+                <label>Nombre</label>
+                <input class="form-control" type="text" name="nombre" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Dirección</label>
+                <input class="form-control" type="text" name="direccion" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Imagen</label>
+                <input class="form-control" type="file" name="imagen" required>
+            </div>
+
+            <button class="btn btn-success">
+                Guardar tienda
+            </button>
+
+            <a href="/admin/tiendas" class="btn btn-secondary">Cancelar</a>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

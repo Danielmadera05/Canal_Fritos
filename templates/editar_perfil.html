@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <div class="card shadow">
+
+                <div class="card-header text-center">
+                    <h4>Editar Perfil</h4>
+                </div>
+
+                <div class="card-body">
+
+                    <form method="POST" enctype="multipart/form-data">
+
+                        <div class="mb-3">
+                            <label>Nombre</label>
+                            <input type="text" name="nombre" class="form-control"
+                                value="{{ cliente.cli_nombre }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Email</label>
+                            <input type="email" name="email" class="form-control"
+                                value="{{ cliente.cli_email }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Teléfono</label>
+                            <input type="text" name="telefono" class="form-control"
+                                value="{{ cliente.cli_telefono }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Dirección</label>
+                            <input type="text" name="address" class="form-control"
+                                value="{{ cliente.cli_address }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Nueva foto</label>
+                            <input type="file" name="foto" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Nueva contraseña</label>
+                            <input type="password" name="password" class="form-control">
+                            <small class="text-muted">Dejar vacío si no desea cambiarla</small>
+                        </div>
+
+                        <button class="btn btn-success w-100">
+                            Guardar cambios
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

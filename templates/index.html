@@ -1,0 +1,42 @@
+<!--TEMPLATE PARA LA PÁGINA DE INICIO -->
+{% extends "base.html" %}
+
+{% block content %}
+
+<a class="dropdown-item" href="/">
+    👤 Volver
+</a>
+
+<h2 class="text-center mb-4">Productos Disponibles</h2>
+
+<div class="row">
+
+{% for p in fritos %}
+
+<div class="col-md-3 mb-4">
+
+  <div class="card shadow-sm h-100">
+
+    <img src="{{ url_for('static', filename='uploads/' + p.fri_foto) }}" 
+         class="card-img-top" height="180">
+
+    <div class="card-body text-center">
+        <h5 class="card-title">{{ p.fri_nombre }}</h5>
+        <p class="card-text fw-bold">${{ p.fri_precio }}</p>
+
+        <form action="/add-cart/{{ p.fri_id }}" method="POST">
+            <button class="btn btn-dark w-100">
+                Agregar al carrito
+            </button>
+        </form>
+    </div>
+
+  </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

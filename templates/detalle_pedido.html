@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h3>Detalle del pedido</h3>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for d, f in detalles %}
+            <tr>
+                <td>{{ f.fri_nombre }}</td>
+                <td>${{ "%.0f"|format(d.precio) }}</td>
+                <td>{{ d.cantidad }}</td>
+                <td>${{ "%.0f"|format(d.precio * d.cantidad) }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+
+    <a href="/mis-compras" class="btn btn-secondary">Volver</a>
+
+</div>
+{% endblock %}

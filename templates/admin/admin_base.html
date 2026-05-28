@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Panel Administrador</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <div class="container">
+
+            <a class="navbar-brand" href="/admin/dashboard">
+                🍟 Canal de los Fritos
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarAdmin">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarAdmin">
+
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle d-flex align-items-center"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown">
+
+                            <img src="{{ url_for('static', filename='uploads/' ~ session.get('admin_foto','default.png')) }}"
+                                width="40"
+                                height="40"
+                                class="rounded-circle me-2">
+
+                            {{ session["admin_nombre"] }}
+
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+
+                            <li>
+                                <a class="dropdown-item" href="/admin/dashboard">
+                                    📊 Inicio
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="/admin/tiendas">
+                                    🏪 Tiendas
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="/admin/productos">
+                                    📦 Productos
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="/admin/pedidos">
+                                    🧾 Pedidos
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="/admin/usuarios">
+                                    👥 Usuarios
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="/admin/reportes">
+                                    📊 Reportes
+                                </a>
+                            </li>
+
+                            <li><hr class="dropdown-divider"></li>
+
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    👤 Perfil
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item text-danger" href="/admin/logout">
+                                    🚪 Cerrar sesión
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+                </ul>
+
+            </div>            
+        </div>
+    </nav>
+
+    <!-- Mensajes flash -->
+    <div class="container mt-3">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+    </div>
+
+    <div class="container mt-4">
+        {% block content %} {% endblock %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+
+        const labelsDashboard = {{ (labels_dashboard or [])|tojson }}
+        const datosDashboard = {{ (datos_dashboard or [])|tojson }}
+
+        new Chart(
+            document.getElementById("pedidosTienda"),
+            {
+                type:"bar",
+                data:{
+                    labels:labelsDashboard,
+                    datasets:[{
+                        label:"Pedidos",
+                        data:datosDashboard
+                    }]
+                }
+            }
+        )
+    </script>
+</body>
+
+</html>

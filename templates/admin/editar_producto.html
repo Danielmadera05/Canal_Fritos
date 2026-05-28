@@ -1,0 +1,54 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block content %}
+
+<h2 class="mb-4">Editar producto</h2>
+
+<div class="card">
+    <div class="card-body">
+        <form method="POST" enctype="multipart/form-data">
+
+            <div class="mb-3">
+                <label>Nombre</label>
+                <input class="form-control" type="text" name="nombre" value="{{ producto.fri_nombre }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Precio</label>
+                <input class="form-control" type="number" name="precio" value="{{ producto.fri_precio }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Tienda</label>
+                <select class="form-select" name="tienda" required>
+                    {% for tienda in tiendas %}
+                    <option value="{{ tienda.tie_id }}" {% if tienda.tie_id == producto.tie_id %}selected{% endif %}>
+                        {{ tienda.tie_nombre }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label>Imagen actual</label><br>
+                <img src="{{ url_for('static', filename='uploads/' + producto.fri_foto) }}" width="100">
+            </div>
+
+            <div class="mb-3">
+                <label>Nueva imagen (opcional)</label>
+                <input class="form-control" type="file" name="imagen">
+            </div>
+
+            <button class="btn btn-warning">
+                Actualizar producto
+            </button>
+
+            <a href="/admin/productos" class="btn btn-secondary">Cancelar</a>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
