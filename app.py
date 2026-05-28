@@ -7,7 +7,30 @@ from controllers.clienteController import auth_bp
 from controllers.carritoController import cart_bp
 from controllers.pedidoController import pedido_bp
 from controllers.tiendaController import tienda_bp
-from controllers.adminController import admin_bp   
+from controllers.adminController import admin_bp 
+# Import PyMySQL for MySQL database connection 
+import pymysql
+import os
+from dotenv import load_dotenv
+
+load_dotenv() 
+
+# Establacer la conexión a la base de datos utilizando PyMySQL y las variables de entorno
+conexion = pymysql.connect(
+    host=os.getenv("MYSQL_HOST"),
+    port=int(os.getenv("MYSQL_PORT")),
+    user=os.getenv("MYSQL_USER"),
+    password=os.getenv("MYSQL_PASSWORD"),
+    database=os.getenv("MYSQL_DB"),
+    cursorclass=pymysql.cursors.DictCursor
+)
+
+try:
+    print("Conexión exitosa 🚀")
+except Exception as e:
+    print("Error al conectar a la base de datos:")
+    print("Error:", e)
+
 
 # Initialize Flask application
 app = Flask(__name__)
