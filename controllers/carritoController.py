@@ -173,6 +173,10 @@ def pagar(id):
 
     return render_template("pago.html", pedido=pedido)
 
+@cart_bp.route("/politica-reembolso")
+def politica_reembolso():
+    return render_template("politica_reembolso.html")
+
 @cart_bp.route("/procesar_pago/<int:id>", methods=["POST"])
 def procesar_pago(id):
 

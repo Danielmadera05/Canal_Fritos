@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container py-5">
+
+        <h1 class="mb-4">
+            Política de Cookies 🍪
+        </h1>
+
+        <p>
+            En Canal Fritos utilizamos cookies para mejorar la experiencia del usuario,
+            analizar el tráfico y personalizar contenido.
+        </p>
+
+        <h4 class="mt-4">
+            ¿Qué son las cookies?
+        </h4>
+
+        <p>
+            Son pequeños archivos almacenados en tu navegador que permiten recordar información
+            sobre tu visita.
+        </p>
+
+        <h4 class="mt-4">
+            ¿Qué cookies usamos?
+        </h4>
+
+        <ul>
+            <li>Cookies de sesión</li>
+            <li>Cookies de preferencias</li>
+            <li>Cookies de seguridad</li>
+        </ul>
+
+        <h4 class="mt-4">
+            ¿Cómo desactivarlas?
+        </h4>
+
+        <p>
+            Puedes rechazar las cookies desde el aviso inicial o desde la configuración de tu navegador.
+        </p>
+
+        <div class="mt-5">
+            <a href="{{ url_for('tienda.listar_tiendas') }}"
+            class="btn btn-dark">
+                ← Volver a la tienda
+            </a>
+        </div>
+
+    </div>
+
+{% endblock %}

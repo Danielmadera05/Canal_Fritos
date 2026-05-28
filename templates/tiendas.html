@@ -39,4 +39,43 @@
 
 </div>
 
+{% if not cookies %}
+
+<div class="position-fixed bottom-0 end-0 m-4" style="z-index:9999;">
+    <div class="card shadow-lg border-0" style="width: 24rem; border-radius: 18px;">
+        <div class="card-body p-4">
+
+            <h5 class="card-title mb-3">
+                🍪 Política de Cookies
+            </h5>
+
+            <p class="card-text text-muted">
+                Utilizamos cookies para mejorar tu experiencia,
+                personalizar contenido y analizar el tráfico de nuestra tienda.
+            </p>
+
+            <a href="{{ url_for('tienda.politica_cookies') }}" class="small text-decoration-none">
+                Leer política de cookies
+            </a>
+
+            <div class="d-flex gap-2 mt-4">
+
+                <a href="{{ url_for('tienda.aceptar_cookies') }}"
+                   class="btn btn-dark w-100">
+                    Aceptar
+                </a>
+
+                <a href="{{ url_for('tienda.rechazar_cookies') }}"
+                   class="btn btn-outline-secondary w-100">
+                    Rechazar
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+
 {% endblock %}

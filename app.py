@@ -1,6 +1,7 @@
 from flask import Flask
 from config import Config
 from extensions import db
+from flask import make_response, request # Importar make_response y request para manejar respuestas y solicitudes HTTP
 # Import blueprints from controllers
 from controllers.fritosController import fritos_bp
 from controllers.clienteController import auth_bp
